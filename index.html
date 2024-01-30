@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookshelf</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav id="navbar">
+      <div id="navbar-main" class="bg-neutral-900 flex justify-between sm:justify-around items-center py-[18px] px-[16px] lg:px-[150px]">
+        <div>
+          <h1 id="name" class="text-xl text-white font-bold"><a href="/">Bookshelf App</a></h1>
+        </div>
+        <div id="menu-img" class="sm:hidden">
+          <img id="menu" src="./src/img/menu.svg" alt="menu" />
+        </div>
+        <div id="menu-list" class="hidden sm:flex sm:gap-[20px] lg:gap-[40px] text-white text-base font-medium font-['DM Sans'] leading-none">
+          <div id="menu-list1" class="flex flex-col justify-center items-center">
+            <a id="menu-list-about" class="hover:text-green-500" href="#addBuku">Tambah Buku</a>
+          </div>
+          <div id="menu-list2" class="flex flex-col justify-center items-center">
+            <a id="menu-list-skill" class="hover:text-green-500" href="#bukuNoRead">Belum diBaca</a>
+          </div>
+          <div id="menu-list3" class="flex flex-col justify-center items-center">
+            <a id="menu-list-contact" class="hover:text-green-500" href="#dataDoneRead">Sudah diBaca</a>
+          </div>
+        </div>
+      </div>
+      <div id="menu-main" class="bg-neutral-900 -mt-1 sm:hidden flex flex-col gap-[25px] py-7 justify-center text-xl items-center text-white font-semibold font-['DM Sans'] leading-none">
+        <a href="#addBuku">Tambah Buku</a>
+        <a href="#bukuNoRead">Buku Belum diBaca</a>
+        <a href="#dataDoneRead">Buku Sudah diBaca</a>
+      </div>
+    </nav>
+  </header>
+  <!-- Main -->
+  <main>
+    <section class="bg-neutral-900">
+      <!-- Tambah Buku -->
+      <article class="py-10" id="addBuku">
+        <div>
+          <h2 class="text-xl sm:text-2xl text-center font-Poppins mb-[20px] text-green-600 font-semibold" data-aos="fade-up">Tambah Buku</h2>
+          <div class="px-[24px] mx-[16px] sm:mx-[120px] md:mx-[200px] lg:mx-[350px] py-[24px] bg-neutral-800 rounded-[15px]" data-aos="fade-up">
+            <form id="form">
+              <div data-aos="fade-up">
+                <div class="flex flex-col">
+                  <label for="inputJudul" class="text-white mb-2 text-base font-Poppins font-semibold">Judul :</label>
+                  <input class="py-[10px] px-[20px] rounded-lg bg-neutral-800 border focus:bg-white text-white focus:text-black" type="text" id="inputJudul" placeholder="Judul" required />
+                </div>
+                <div class="flex flex-col mt-[24px]">
+                  <label for="inputPenulis" class="text-white mb-2 text-base font-Poppins font-semibold">Penulis :</label>
+                  <input class="py-[10px] px-[20px] rounded-lg bg-neutral-800 border focus:bg-white text-white focus:text-black" type="text" id="inputPenulis" placeholder="Penulis" required />
+                </div>
+                <div class="flex flex-col mt-[24px]">
+                  <label for="inputTahun" class="text-white mb-2 text-base font-Poppins font-semibold">Tahun :</label>
+                  <input class="py-[10px] px-[20px] rounded-lg bg-neutral-800 border focus:bg-white text-white focus:text-black" type="number" id="inputTahun" placeholder="Tahun" required ></input>
+                </div>
+                <div class="flex gap-2 items-center mt-[24px]">
+                  <input type="checkbox" id="checkbox" value="true" checked>
+                  <label for="checkbox" class="text-white text-base font-Poppins font-base">Selesai diBaca</label>
+                </div>
+                <button class="text-white mt-[24px] hover:scale-95 bg-green-500 hover:bg-green-600 rounded-lg py-[10px] px-[20px] font-Poppins font-semibold" type="submit">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </article>
+      <!-- Buku Belum dibaca -->
+      <article class="pb-10" id="bukuNoRead" data-aos="fade-up">
+        <h2 class="text-xl sm:text-2xl text-center font-Poppins mb-[20px] text-green-600 font-semibold" data-aos="fade-up">Belum Selesai di Baca</h2>
+        <div class="mt-4 flex items-center justify-center gap-2 py-4">
+          <label for="searchUncompletedInput" class="text-white mb-2 text-base font-Poppins font-semibold">Cari Buku:</label>
+          <input class="py-2 px-4 rounded-lg bg-neutral-800 border focus:bg-white text-white focus:text-black" type="text" id="searchUncompletedInput" placeholder="Masukkan judul buku" oninput="searchUncompletedBooks()" />
+        </div>
+        <div class="flex justify-between px-[13px] mx-[16px] sm:mx-[120px] md:mx-[200px] lg:mx-[350px] py-[10px] bg-neutral-800 rounded-[15px]" data-aos="fade-up">
+          <div class="text-white bg-neutral-900 mx-[10px] my-[10px] rounded-lg px-[10px] py-[10px] w-full">
+            <div class="class-list" id="todos"></div>
+          </div>
+        </div>
+      </article>
+      <!-- Buku Sudah dibaca -->
+      <article class="bg-neutral-900 -mt-1 pb-20" id="dataDoneRead">
+        <h2 class="text-xl sm:text-2xl text-center font-Poppins mb-[20px] text-green-600 font-semibold" data-aos="fade-up">Selesai di Baca</h2>
+        <div class="flex justify-between px-[13px] mx-[16px] sm:mx-[120px] md:mx-[200px] lg:mx-[350px] py-[10px] bg-neutral-800 rounded-[15px]" data-aos="fade-up">
+          <div class="text-white bg-neutral-900 mx-[10px] my-[10px] rounded-lg px-[10px] py-[10px] w-full">
+            <div class="class-list" id="completed-todos"></div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="bg-neutral-900 py-[24px] border-t border-green-500">
+      <p class="text-center text-white text-base font-Poppins font-semibold">Ahmad Surya Alam Syah | Copyright &copy; 2024 - Bookshelf App </p>
+    </div>
+  </footer>
+  <script src="./js/index.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
